@@ -11,12 +11,16 @@ export default {
   data() {
     return {
       questions: [],
-      questionIndex: 0
+      questionIndex: 0,
+      score: 0
     }
   },
   methods: {
     next() {
       this.questionIndex++;
+    },
+    updateScore() {
+      this.score++
     }
   },
   mounted: function() {
@@ -31,11 +35,17 @@ export default {
 
 <template>
     <div class="wrapper">
-      <Header />
+      <Header 
+        v-if="questions.length"
+        :length="questions.length"
+        :score="score"
+      />
       <QuestionBox 
         v-if="questions.length"
         :question="questions[questionIndex]" 
-        :next="next"/>
+        :next="next"
+        :updateScore="updateScore"
+        />
     </div>
 </template>
 

@@ -3,7 +3,8 @@ import { shuffle } from 'lodash';
 export default {
   props: {
     question: Object,
-    next: Function
+    next: Function,
+    updateScore: Function
   },
   data() {
     return {
@@ -15,9 +16,10 @@ export default {
     selectAnswer(index) {
       this.selectedAnswer = index
     },
-    handleSubmit() {
-      console.log('submitted')
+    handleSubmit(index) {
+      // console.log(answer)
       this.submitted = true
+      if (this.answers[index].correct) this.updateScore()
     }
   },
   computed: {
@@ -35,7 +37,6 @@ export default {
     question() {
       this.selectedAnswer = null
       this.submitted = false
-      this.shuffleAnswers()
     }
   }
 }
@@ -59,7 +60,7 @@ export default {
           {{answer.answer}}
         </li>
       </ul>
-      <button class="btn-pink" @click="handleSubmit()">submit</button>
+      <button class="btn-pink" @click="handleSubmit(selectedAnswer)">submit</button>
       <button class="btn-pink grey" @click="next">next question</button>
     </div>
   </div>

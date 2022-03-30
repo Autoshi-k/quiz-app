@@ -1,6 +1,15 @@
+<script>
+  export default {
+    props: {
+      length: Number,
+      score: Number
+    }
+  }
+</script>
+
 <template>
   <div class="header"> 
-    <h3>Correct answres: <span>1/4</span></h3>
+    <h3>Correct answres: <span>{{score + '/' + length}}</span></h3>
     <button class="btn-pink">Reset Count</button>
   </div>
 </template>
