@@ -1,6 +1,7 @@
 # vue-project
 
 This is my first vue project!
+API from <https://opentdb.com/>. 
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Project Setup
