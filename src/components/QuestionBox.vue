@@ -1,4 +1,5 @@
 <script>
+import { shuffle } from 'lodash';
 export default {
   props: {
     question: Object,
@@ -6,18 +7,35 @@ export default {
   },
   data() {
     return {
-      results: []
+      selectedAnswer: null,
+      submitted: false
     }  
+  },
+  methods: {
+    selectAnswer(index) {
+      this.selectedAnswer = index
+    },
+    handleSubmit() {
+      console.log('submitted')
+      this.submitted = true
+    }
   },
   computed: {
     answers() {
-      const results = [];
-    for (let index in this.question.incorrect_answers) {
-      results.push({ answer: this.question.incorrect_answers[index], correct: false })
+      let results = [];
+      for (let index in this.question.incorrect_answers) {
+        results.push({ answer: this.question.incorrect_answers[index], correct: false })
+      }
+      results.push({ answer: this.question.correct_answer, correct: true })
+      results = shuffle(results)
+      return results
     }
-    results.push({ answer: this.question.correct_answer, correct: true })
-    console.log(results)
-    return results
+  },
+  watch: {
+    question() {
+      this.selectedAnswer = null
+      this.submitted = false
+      this.shuffleAnswers()
     }
   }
 }
@@ -29,9 +47,19 @@ export default {
     <div class="question-box">
       <h3>{{ question.question }}</h3>
       <ul class="answers">
-        <li v-for="(answer, index) in answers" :key="index">{{answer.answer}}</li>
+        <li 
+          v-for="(answer, index) in answers" 
+          :key="index"
+          @click="selectAnswer(index)"
+          :class="[
+            index === selectedAnswer ? 'selected': '', 
+            submitted ? answer.correct ? 'correct' : 'incorrect' : ''
+          ]"
+          >
+          {{answer.answer}}
+        </li>
       </ul>
-      <button class="btn-pink">submit</button>
+      <button class="btn-pink" @click="handleSubmit()">submit</button>
       <button class="btn-pink grey" @click="next">next question</button>
     </div>
   </div>
@@ -72,6 +100,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 
   .question-box ul li:hover {
@@ -94,5 +123,15 @@ export default {
   .question-box button.grey:hover {
     background-color: transparent;  
     color: black;
+  }
+
+  .selected {
+    background-color: rgb(177, 108, 131) !important;
+  }
+  .selected.incorrect {
+    background-color: rgb(228, 62, 62) !important;
+  }
+  .correct {
+    background-color: rgb(131, 221, 154) !important;
   }
 </style>
