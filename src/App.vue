@@ -1,24 +1,42 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+<script>
 import Header from './components/Header.vue';
+import QuestionBox from './components/QuestionBox.vue';
+
+export default {
+  name: 'app',
+  components: {
+    Header,
+    QuestionBox
+  },
+  data() {
+    return {
+      questions: [],
+      questionIndex: 0
+    }
+  },
+  methods: {
+    next() {
+      this.questionIndex++;
+    }
+  },
+  mounted: function() {
+    fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {
+      method: 'get'
+    })
+    .then(res => res.json())
+    .then(data => this.questions = data.results)
+  }
+}
 </script>
 
 <template>
-  <header>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-
     <div class="wrapper">
       <Header />
-
-      <!-- <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav> -->
+      <QuestionBox 
+        v-if="questions.length"
+        :question="questions[questionIndex]" 
+        :next="next"/>
     </div>
-  </header>
-
-  <!-- <RouterView /> -->
 </template>
 
 <style>
@@ -47,6 +65,22 @@ a,
   text-decoration: none;
   color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
+}
+
+.btn-pink {
+  background-color: palevioletred;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: .2rem;
+  border: none;
+  filter: drop-shadow(0 3px 10px rgb(238, 238, 238));
+}
+
+.btn-pink:hover {
+  background-color: rgb(204, 81, 122);
+  filter: drop-shadow(0 3px 10px rgb(212, 212, 212));
 }
 
 @media (hover: hover) {
@@ -88,6 +122,13 @@ nav a:first-of-type {
   #app {
     padding: 0;
     margin: 0;
+  }
+
+  .wrapper { 
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
   }
 }
 </style>
