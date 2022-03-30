@@ -8,7 +8,7 @@
 <style scoped>
   .header {
     width: 100vw;
-    height: 3rem;
+    min-height: 3rem;
     display: flex;
     align-items: center;
     border-bottom: 2px solid palevioletred;

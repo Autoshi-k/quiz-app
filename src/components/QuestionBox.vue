@@ -46,6 +46,7 @@ export default {
 
   .wrapper {
     flex: 1;
+    padding: 3rem;
   }
 
   .question-box h3 {
