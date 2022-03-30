@@ -23,5 +23,6 @@
   .header button {
     height: 2rem;
     padding: 0 1rem;
+    width: fit-content;
   }
 </style>

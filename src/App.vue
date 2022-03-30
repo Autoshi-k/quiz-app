@@ -45,14 +45,9 @@ export default {
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
 
   font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
 }
 
 .logo {
@@ -60,14 +55,9 @@ header {
   margin: 0 auto 2rem;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
 .btn-pink {
+  width: 90vw;
+  max-width: 100%;
   background-color: palevioletred;
   color: white;
   font-weight: 600;
@@ -76,42 +66,12 @@ a,
   border-radius: .2rem;
   border: none;
   filter: drop-shadow(0 3px 10px rgb(238, 238, 238));
+  cursor: pointer;
 }
 
 .btn-pink:hover {
   background-color: rgb(204, 81, 122);
   filter: drop-shadow(0 3px 10px rgb(212, 212, 212));
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
 }
 
 @media (min-width: 1024px) {
